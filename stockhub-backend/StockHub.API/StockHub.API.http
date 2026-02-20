@@ -1,0 +1,6 @@
+@StockHub.API_HostAddress = http://localhost:5184
+
+GET {{StockHub.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

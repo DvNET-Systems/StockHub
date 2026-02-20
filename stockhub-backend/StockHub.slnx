@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="StockHub.API/StockHub.API.csproj" />
+  <Project Path="StockHub.Application/StockHub.Application.csproj" />
+  <Project Path="StockHub.Domain/StockHub.Domain.csproj" />
+  <Project Path="StockHub.Infrastructure/StockHub.Infrastructure.csproj" />
+</Solution>
