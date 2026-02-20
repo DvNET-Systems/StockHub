@@ -5,6 +5,7 @@ namespace StockHub.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
+    DbSet<AppUser> AppUsers { get; }
     DbSet<Category> Categories { get; }
     DbSet<Customer> Customers { get; }
     DbSet<Product> Products { get; }
@@ -16,5 +17,5 @@ public interface IApplicationDbContext
     DbSet<Supplier> Suppliers { get; }
     DbSet<Unit> Units { get; }
     
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
