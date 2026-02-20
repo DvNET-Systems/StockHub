@@ -13,5 +13,5 @@ public class SaleOrder : BaseEntity
     public decimal TotalAmount { get; set; }
     public string? Notes { get; set; }
 
-    public ICollection<SaleItem> SaleItems { get; set; } = [];
+    public ICollection<SaleItem> Items { get; set; } = [];
 }
