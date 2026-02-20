@@ -15,8 +15,8 @@ public class Product : BaseEntity
     
     public int UnitId { get; set; }
     public Unit Unit { get; set; } = null!;
-    
-    public ICollection<StockMovement> StockMovements { get; set; } = new List<StockMovement>();
-    public ICollection<PurchaseItem> PurchaseItems { get; set; } = new List<PurchaseItem>();
-    public ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
+
+    public ICollection<StockMovement> StockMovements { get; set; } = [];
+    public ICollection<PurchaseItem> PurchaseItems { get; set; } = [];
+    public ICollection<SaleItem> SaleItems { get; set; } = [];
 }
