@@ -17,11 +17,4 @@
       <ProjectReference Include="..\StockHub.Domain\StockHub.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Orders\" />
-      <Folder Include="PurchaseOrders\" />
-      <Folder Include="Reports\" />
-      <Folder Include="SaleOrders\" />
-    </ItemGroup>
-
 </Project>

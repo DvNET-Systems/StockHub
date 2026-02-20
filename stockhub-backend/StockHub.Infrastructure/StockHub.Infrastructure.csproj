@@ -13,7 +13,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
+      <Folder Include="Identity\" />
+      <Folder Include="Reports\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\StockHub.Application\StockHub.Application.csproj" />
+      <ProjectReference Include="..\StockHub.Domain\StockHub.Domain.csproj" />
     </ItemGroup>
 
 </Project>
