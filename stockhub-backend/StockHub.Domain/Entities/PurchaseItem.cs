@@ -10,5 +10,5 @@ public class PurchaseItem : BaseEntity
     
     public decimal Quantity { get; set; }
     public decimal UnitCost { get; set; }
-    public decimal TotoalCost => Quantity * UnitCost;
+    public decimal TotalCost => Quantity * UnitCost;
 }
