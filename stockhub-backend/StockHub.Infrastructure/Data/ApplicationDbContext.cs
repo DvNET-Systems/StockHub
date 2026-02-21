@@ -17,4 +17,20 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<SaleOrder> SaleOrders => Set<SaleOrder>();
     public DbSet<SaleItem> SaleItems => Set<SaleItem>();
     public DbSet<StockMovement> StockMovements => Set<StockMovement>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        foreach (var entry in ChangeTracker.Entries<BaseEntity>())
+        {
+            if (entry.State == EntityState.Modified)
+                entry.Entity.UpdatedAt = DateTime.UtcNow;
+        }
+        return await base.SaveChangesAsync(cancellationToken);
+    }
 }
