@@ -12,6 +12,5 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
         builder.Property(c => c.Phone).HasMaxLength(30);
         builder.Property(c => c.Email).HasMaxLength(200);
         builder.Property(c => c.Address).HasMaxLength(500);
-        builder.HasQueryFilter(c => c.IsActive);
     }
 }

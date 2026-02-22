@@ -13,6 +13,5 @@ public class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
         builder.Property(s => s.Phone).HasMaxLength(30);
         builder.Property(s => s.Email).HasMaxLength(200);
         builder.Property(s => s.Address).HasMaxLength(500);
-        builder.HasQueryFilter(s => s.IsActive);
     }
 }
