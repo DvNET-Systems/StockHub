@@ -52,4 +52,35 @@ public class ReportService(ApplicationDbContext context, ICurrentUserService cur
 
         return document.GeneratePdf();
     }
+    
+    public async Task<byte[]> GenerateSalesReportAsync(CancellationToken ct = default)
+{
+    QuestPDF.Settings.License = LicenseType.Community;
+
+    var orders = await context.SaleOrders
+        .AsNoTracking()
+        .Include(o => o.Customer)
+        .Include(o => o.Items)
+            .ThenInclude(i => i.Product)
+        .OrderByDescending(o => o.OrderDate)
+        .ToListAsync(ct);
+
+    var reportItems = orders.Select(o => new SalesReportItem(
+        o.OrderNumber,
+        o.Customer.Name,
+        o.OrderDate,
+        o.Status.ToString(),
+        o.Items.Select(i => new SalesReportLineItem(
+            i.Product.Name,
+            i.Product.SKU,
+            i.Quantity,
+            i.UnitPrice,
+            i.Quantity * i.UnitPrice
+        )).ToList(),
+        o.TotalAmount
+    )).ToList();
+
+    var generatedBy = currentUser.Username ?? "System";
+    return new SalesReportDocument(reportItems, generatedBy).GeneratePdf();
+}
 }
