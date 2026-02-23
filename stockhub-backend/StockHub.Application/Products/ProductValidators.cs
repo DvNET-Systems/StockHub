@@ -9,7 +9,7 @@ public class CreateProductValidator : AbstractValidator<CreateProductRequest>
         RuleFor(x => x.Name)
             .NotEmpty().MaximumLength(200);
 
-        RuleFor(x => x.SKU)
+        RuleFor(x => x.Sku)
             .NotEmpty().MaximumLength(50);
 
         RuleFor(x => x.CostPrice)

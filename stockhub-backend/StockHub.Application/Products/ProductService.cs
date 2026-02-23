@@ -43,13 +43,13 @@ public class ProductService(IApplicationDbContext context) : IProductService
 
     public async Task<ProductResponse> CreateAsync(CreateProductRequest request, CancellationToken ct = default)
     {
-        if (await context.Products.AnyAsync(p => p.SKU == request.SKU, ct))
-            throw new ConflictException($"SKU '{request.SKU}' already exists.");
+        if (await context.Products.AnyAsync(p => p.SKU == request.Sku, ct))
+            throw new ConflictException($"SKU '{request.Sku}' already exists.");
 
         var product = new Product
         {
             Name = request.Name,
-            SKU = request.SKU,
+            SKU = request.Sku,
             Description = request.Description,
             CostPrice = request.CostPrice,
             SellingPrice = request.SellingPrice,

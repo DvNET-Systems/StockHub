@@ -30,7 +30,7 @@ public record PurchaseItemResponse(
     int Id,
     int ProductId,
     string ProductName,
-    string ProductSKU,
+    string ProductSku,
     decimal Quantity,
     decimal UnitCost,
     decimal TotalCost

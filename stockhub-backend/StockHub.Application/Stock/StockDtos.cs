@@ -13,7 +13,7 @@ public record StockMovementResponse(
     int Id,
     int ProductId,
     string ProductName,
-    string ProductSKU,
+    string ProductSku,
     StockMovementType Type,
     decimal Quantity,
     string? Notes,

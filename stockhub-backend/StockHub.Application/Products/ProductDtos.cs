@@ -2,7 +2,7 @@ namespace StockHub.Application.Products;
 
 public record CreateProductRequest(
     string Name,
-    string SKU,
+    string Sku,
     string? Description,
     decimal CostPrice,
     decimal SellingPrice,
@@ -24,7 +24,7 @@ public record UpdateProductRequest(
 public record ProductResponse(
     int Id,
     string Name,
-    string SKU,
+    string Sku,
     string? Description,
     decimal CostPrice,
     decimal SellingPrice,
