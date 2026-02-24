@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using StockHub.API.Extensions;
+using StockHub.API.Middleware;
 using StockHub.Application;
 using StockHub.Infrastructure;
 using StockHub.Infrastructure.Data;
@@ -14,7 +15,22 @@ builder.Services.AddApiDocumentation();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+// CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
 var app = builder.Build();
+
+// Middleware pipeline
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<ValidationMiddleware>();
+
+app.UseCors();
 
 // OpenAPI and Scalar documentation
 if (app.Environment.IsDevelopment())
@@ -30,6 +46,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // Authentication and Authorization
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 

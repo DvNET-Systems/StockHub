@@ -1,6 +1,196 @@
-@StockHub.API_HostAddress = http://localhost:5184
+@baseUrl = https://localhost:7000
+@token = 
 
-GET {{StockHub.API_HostAddress}}/weatherforecast/
-Accept: application/json
+### ── AUTH ────────────────────────────────────────────────────────
 
-###
+### Login with seeded admin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "Admin@123"
+}
+
+### Register new user
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "Test@123"
+}
+
+### Who am I?
+GET {{baseUrl}}/api/auth/me
+Authorization: Bearer {{token}}
+
+
+### ── CATEGORIES ─────────────────────────────────────────────────
+
+### Get all categories
+GET {{baseUrl}}/api/categories
+Authorization: Bearer {{token}}
+
+### Create category
+POST {{baseUrl}}/api/categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Tools",
+  "description": "Hardware and hand tools"
+}
+
+
+### ── UNITS ────────────────────────────────────────────────────────
+
+### Get all units (seeded)
+GET {{baseUrl}}/api/units
+Authorization: Bearer {{token}}
+
+
+### ── SUPPLIERS ────────────────────────────────────────────────────
+
+### Create supplier
+POST {{baseUrl}}/api/suppliers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "TechCorp Supplies",
+  "contactPerson": "John Smith",
+  "phone": "+94 77 123 4567",
+  "email": "john@techcorp.lk",
+  "address": "123 Galle Road, Colombo 03"
+}
+
+### Get all suppliers
+GET {{baseUrl}}/api/suppliers
+Authorization: Bearer {{token}}
+
+
+### ── CUSTOMERS ────────────────────────────────────────────────────
+
+### Create customer
+POST {{baseUrl}}/api/customers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "ABC Hardware",
+  "phone": "+94 11 234 5678",
+  "email": "orders@abchardware.lk",
+  "address": "456 Main St, Kandy"
+}
+
+
+### ── PRODUCTS ─────────────────────────────────────────────────────
+
+### Create product (use IDs from categories/units above)
+POST {{baseUrl}}/api/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Wireless Mouse",
+  "sku": "WM-001",
+  "description": "Ergonomic wireless mouse",
+  "costPrice": 1200.00,
+  "sellingPrice": 1850.00,
+  "reorderLevel": 10,
+  "categoryId": 1,
+  "unitId": 1
+}
+
+### Get all products
+GET {{baseUrl}}/api/products
+Authorization: Bearer {{token}}
+
+### Get low stock products
+GET {{baseUrl}}/api/products/low-stock
+Authorization: Bearer {{token}}
+
+
+### ── STOCK ADJUSTMENTS ────────────────────────────────────────────
+
+### Manual stock IN (add stock directly)
+POST {{baseUrl}}/api/stock/adjust
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "type": 0,
+  "quantity": 50,
+  "notes": "Opening stock"
+}
+
+### Get current stock for product
+GET {{baseUrl}}/api/stock/1/current
+Authorization: Bearer {{token}}
+
+### Get all stock movements
+GET {{baseUrl}}/api/stock/movements
+Authorization: Bearer {{token}}
+
+
+### ── PURCHASE ORDERS ──────────────────────────────────────────────
+
+### Create purchase order (Draft)
+POST {{baseUrl}}/api/purchase-orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "supplierId": 1,
+  "notes": "Monthly restock",
+  "items": [
+    { "productId": 1, "quantity": 100, "unitCost": 1200.00 }
+  ]
+}
+
+### Confirm order
+POST {{baseUrl}}/api/purchase-orders/1/confirm
+Authorization: Bearer {{token}}
+
+### Complete order (STOCK COMES IN HERE)
+POST {{baseUrl}}/api/purchase-orders/1/complete
+Authorization: Bearer {{token}}
+
+
+### ── SALE ORDERS ──────────────────────────────────────────────────
+
+### Create sale order
+POST {{baseUrl}}/api/sale-orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "notes": "Urgent order",
+  "items": [
+    { "productId": 1, "quantity": 5, "unitPrice": 1850.00 }
+  ]
+}
+
+### Confirm sale order
+POST {{baseUrl}}/api/sale-orders/1/confirm
+Authorization: Bearer {{token}}
+
+### Complete sale order (STOCK GOES OUT HERE)
+POST {{baseUrl}}/api/sale-orders/1/complete
+Authorization: Bearer {{token}}
+
+
+### ── REPORTS ──────────────────────────────────────────────────────
+
+### Download PDF stock summary report
+GET {{baseUrl}}/api/reports/stock-summary
+Authorization: Bearer {{token}}
+
+### Download PDF sales summary report
+GET {{baseUrl}}/api/reports/sales-summary
+Authorization: Bearer {{token}}
+
