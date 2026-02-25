@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* ── Custom theme tokens ─────────────────────────────────────────── */
+@theme {
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Twitter-inspired dark palette */
+  --color-bg:             #000000;
+  --color-surface:        #16181c;
+  --color-surface-2:      #1c1f26;
+  --color-border:         #2f3336;
+  --color-border-light:   #3d4347;
+
+  --color-text:           #e7e9ea;
+  --color-text-muted:     #71767b;
+  --color-text-dim:       #536471;
+
+  --color-blue:           #1d9bf0;
+  --color-blue-hover:     #1a8cd8;
+  --color-blue-dim:       #1d9bf015;
+
+  --color-green:          #00ba7c;
+  --color-green-dim:      #00ba7c15;
+  --color-red:            #f4212e;
+  --color-red-dim:        #f4212e15;
+  --color-yellow:         #ffd400;
+  --color-yellow-dim:     #ffd40015;
+  --color-orange:         #ff7a00;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-dim);
+}
+
+/* ── Utility classes ────────────────────────────────────────────────── */
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Smooth page transitions */
+.page-enter {
+  animation: fadeSlideIn 0.18s ease-out;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Custom form styles (not covered by Tailwind utilities) ─────────── */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
